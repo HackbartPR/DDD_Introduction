@@ -5,11 +5,11 @@ namespace Domain.Product.Entity
     public class Product : BaseEntity
     {
         public Guid Id { get; private set; }
-        public int Price { get; private set; }
+        public float Price { get; private set; }
         public string Name { get; private set; }
         public int RewardPoints { get; private set; }
 
-        public Product(Guid id, string name, int price, int rewardPoints = 0)
+        public Product(Guid id, string name, float price, int rewardPoints = 0)
         {
             Id = id;
             Name = name;
@@ -33,7 +33,7 @@ namespace Domain.Product.Entity
             Validate();
         }
 
-        public void ChangePrice(int price)
+        public void ChangePrice(float price)
         {
             Price = price;
             Validate();

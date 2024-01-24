@@ -6,7 +6,7 @@
         public void Create_Product_OnSuccess()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             int rewardPoints = 0;
             string name = "Teste";
             Guid id = Guid.NewGuid();
@@ -25,7 +25,7 @@
         public void Create_Product_InvalidId_OnFailed()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             int rewardPoints = 0;
             string name = "Teste";
             Guid id = Guid.Empty;
@@ -38,7 +38,7 @@
         public void Create_Product_InvalidName_OnFailed()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             int rewardPoints = 0;
             string name = string.Empty;
             Guid id = Guid.NewGuid();
@@ -51,7 +51,7 @@
         public void Create_Product_InvalidPrice_OnFailed()
         {
             // Arrange
-            int price = -100;
+            float price = -100;
             int rewardPoints = 0;
             string name = "Teste";
             Guid id = Guid.NewGuid();
@@ -64,7 +64,7 @@
         public void Create_Product_InvalidRewardPoints_OnFailed()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             int rewardPoints = -10;
             string name = "Teste";
             Guid id = Guid.NewGuid();
@@ -77,7 +77,7 @@
         public void ChangeName_OnSuccess()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             Guid id = Guid.NewGuid();
 
             string name = "Teste";
@@ -96,7 +96,7 @@
         public void ChangeName_OnFailed()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             Guid id = Guid.NewGuid();
 
             string name = "Teste";
@@ -115,8 +115,8 @@
             string name = "Teste";
             Guid id = Guid.NewGuid();
 
-            int price = 100;
-            int newPrice = 200;
+            float price = 100;
+            float newPrice = 200;
 
             Domain.Product.Entity.Product product = new(id, name, price);
 
@@ -134,8 +134,8 @@
             string name = "Teste";
             Guid id = Guid.NewGuid();
 
-            int price = 100;
-            int newPrice = -200;
+            float price = 100;
+            float newPrice = -200;
 
             Domain.Product.Entity.Product product = new(id, name, price);
 
@@ -147,7 +147,7 @@
         public void ChangeRewardPoints_OnSuccess()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             string name = "Teste";
             Guid id = Guid.NewGuid();
 
@@ -167,7 +167,7 @@
         public void ChangeRewardPoints_OnFailed()
         {
             // Arrange
-            int price = 100;
+            float price = 100;
             string name = "Teste";
             Guid id = Guid.NewGuid();
 
