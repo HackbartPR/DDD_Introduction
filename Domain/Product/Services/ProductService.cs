@@ -1,6 +1,6 @@
 ﻿namespace Domain.Product.Services
 {
-    public class ProductService
+    public abstract class ProductService
     {
         public static void IncreasePrice(ICollection<Entity.Product> products, float porcentage)
         {
