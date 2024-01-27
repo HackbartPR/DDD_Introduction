@@ -1,19 +1,18 @@
 ﻿using Domain._Shared.Repository;
-using Domain.Product.Entity;
 using Infrastructure.Database.EntityFramework.Model;
 using Infrastructure.Repository._Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repository
+namespace Infrastructure.Repository.Product
 {
-    public class ProductRepository : IBaseRepository<Product>
+    public class ProductRepository : IBaseRepository<Domain.Product.Entity.Product>
     {
         private readonly IRepositoryORM _repository;
 
         public ProductRepository(IRepositoryORM repository)
             => _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        public async Task CreateAsync(Product entity)
+        public async Task CreateAsync(Domain.Product.Entity.Product entity)
         {
             ProductModel product = new()
             {
@@ -23,25 +22,25 @@ namespace Infrastructure.Repository
                 RewardsPoints = entity.RewardPoints,
             };
 
-            await _repository.AddAsync<ProductModel>(product);
+            await _repository.AddAsync(product);
             await _repository.CommitAsync();
         }
 
-        public Task<ICollection<Product>> FindAllAsync()
+        public Task<ICollection<Domain.Product.Entity.Product>> FindAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Product?> FindAsync(Guid Id)
+        public async Task<Domain.Product.Entity.Product?> FindAsync(Guid Id)
         {
             IQueryable<ProductModel> query = _repository.Query<ProductModel>();
             ProductModel? model = await query.FirstOrDefaultAsync(p => p.Id.Equals(Id));
 
             if (model == null) return null;
-            return new Product(Id, model.Name, model.Price, model.RewardsPoints);
+            return new Domain.Product.Entity.Product(Id, model.Name, model.Price, model.RewardsPoints);
         }
 
-        public Task UpdateAsync(Product entity)
+        public Task UpdateAsync(Domain.Product.Entity.Product entity)
         {
 
             throw new NotImplementedException();

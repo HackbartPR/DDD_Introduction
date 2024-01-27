@@ -1,8 +1,8 @@
 ﻿using Domain._Shared.Repository;
 using InfraestructureUT.Database.EntityFramework.Settings;
 using Infrastructure.Database.EntityFramework.Repository;
-using Infrastructure.Repository;
 using Infrastructure.Repository._Shared;
+using Infrastructure.Repository.Product;
 
 namespace InfraestructureUT.Repository.Product
 {
