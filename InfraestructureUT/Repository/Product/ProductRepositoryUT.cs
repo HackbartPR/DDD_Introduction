@@ -31,5 +31,46 @@ namespace InfraestructureUT.Repository.Product
             // Assert
             Assert.Equivalent(product, result);
         }
+
+        [Fact]
+        public async Task Update_Successfuly()
+        {
+            // Arrange
+            Guid id = Guid.NewGuid();
+            Domain.Product.Entity.Product product = new(id, "Produto 1", 100);
+
+            // Act & Assert
+            await productRepository.CreateAsync(product);
+            Domain.Product.Entity.Product? resultFromCreate = await productRepository.FindAsync(id);
+            
+            Assert.Equivalent(product, resultFromCreate);
+
+            resultFromCreate!.ChangeName("Produto 1 Alterado");
+            resultFromCreate.ChangePrice(200);
+            resultFromCreate.ChangeRewardPoints(10);
+            await productRepository.UpdateAsync(resultFromCreate);
+            Domain.Product.Entity.Product? resultFromUpdate = await productRepository.FindAsync(id);
+
+            Assert.Equivalent(resultFromCreate, resultFromUpdate);
+        }
+
+        [Fact]
+        public async Task FindAll_Successfuly()
+        {
+            // Arrange
+            Domain.Product.Entity.Product product1 = new(Guid.NewGuid(), "Produto 1", 100);
+            Domain.Product.Entity.Product product2 = new(Guid.NewGuid(), "Produto 2", 200);
+
+            ICollection<Domain.Product.Entity.Product> expected = new List<Domain.Product.Entity.Product> { product1, product2 };
+
+            await productRepository.CreateAsync(product1);
+            await productRepository.CreateAsync(product2);
+
+            // Act
+            var result = await productRepository.FindAllAsync();
+
+            // Assert
+            Assert.Equivalent(result, expected);
+        }
     }
 }

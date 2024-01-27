@@ -26,9 +26,12 @@ namespace Infrastructure.Repository.Product
             await _repository.CommitAsync();
         }
 
-        public Task<ICollection<Domain.Product.Entity.Product>> FindAllAsync()
+        public async Task<ICollection<Domain.Product.Entity.Product>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            IQueryable<ProductModel> query = _repository.Query<ProductModel>();
+            ICollection<ProductModel> models = await query.ToListAsync();
+
+            return models.Select(m => new Domain.Product.Entity.Product(m.Id, m.Name, m.Price, m.RewardsPoints)).ToList();
         }
 
         public async Task<Domain.Product.Entity.Product?> FindAsync(Guid Id)
@@ -40,10 +43,18 @@ namespace Infrastructure.Repository.Product
             return new Domain.Product.Entity.Product(Id, model.Name, model.Price, model.RewardsPoints);
         }
 
-        public Task UpdateAsync(Domain.Product.Entity.Product entity)
+        public async Task UpdateAsync(Domain.Product.Entity.Product entity)
         {
+            IQueryable<ProductModel> query = _repository.Query<ProductModel>();
+            ProductModel? model = await query.FirstOrDefaultAsync(p => p.Id.Equals(entity.Id))
+                ?? throw new InvalidOperationException("Product not found");
 
-            throw new NotImplementedException();
+            model.Name = entity.Name;
+            model.Price = entity.Price;
+            model.RewardsPoints = entity.RewardPoints;
+            
+            await _repository.UpdateAsync(model);
+            await _repository.CommitAsync();
         }
     }
 }
