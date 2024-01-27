@@ -6,7 +6,7 @@
 
         Task UpdateAsync(T entity);
 
-        Task<T> FindAsync(Guid Id);
+        Task<T?> FindAsync(Guid Id);
 
         Task<ICollection<T>> FindAllAsync();
     }

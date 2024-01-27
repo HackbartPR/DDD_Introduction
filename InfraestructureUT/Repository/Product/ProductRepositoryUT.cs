@@ -1,25 +1,35 @@
-﻿using InfraestructureUT.Database.EntityFramework.Settings;
-using Infrastructure.Database.EntityFramework.Settings;
-using Microsoft.EntityFrameworkCore;
+﻿using Domain._Shared.Repository;
+using InfraestructureUT.Database.EntityFramework.Settings;
+using Infrastructure.Database.EntityFramework.Repository;
+using Infrastructure.Repository;
+using Infrastructure.Repository._Shared;
 
 namespace InfraestructureUT.Repository.Product
 {
     public class ProductRepositoryUT
     {
-        // Teste para verificar o funcionamento do DbContext
-        [Fact]
-        public async Task Testando()
+        private readonly IRepositoryORM repositoryORM;
+        private readonly IBaseRepository<Domain.Product.Entity.Product> productRepository;
+
+        public ProductRepositoryUT() 
         {
-            var context = EFContextUT.GetContext();
+            repositoryORM = new EntityFrameworkRepository(EFContextUT.GetContext());
+            productRepository = new ProductRepository(repositoryORM);
+        }
 
-            await context.Products.AddAsync(new Infrastructure.Database.EntityFramework.Model.Product() { Id = Guid.NewGuid(), Name = "Teste", Price = 10, RewardsPoints = 100 });
-            await context.SaveChangesAsync();
+        [Fact]
+        public async Task Create_Successfuly()
+        {
+            // Arrange
+            Guid id = Guid.NewGuid();
+            Domain.Product.Entity.Product product = new(id, "Produto 1", 100);
 
-            ICollection<Infrastructure.Database.EntityFramework.Model.Product> result =await context.Products.ToListAsync();
+            // Act
+            await productRepository.CreateAsync(product);
+            Domain.Product.Entity.Product? result = await productRepository.FindAsync(id);
 
-            Assert.Single(result);
-            Assert.Contains(result, p => p.Name == "Teste");
-
+            // Assert
+            Assert.Equivalent(product, result);
         }
     }
 }

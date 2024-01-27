@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Database.EntityFramework.Model
 {
-    public class Product
+    public class ProductModel
     {
         public Guid Id { get; set; }
 
@@ -15,6 +15,6 @@ namespace Infrastructure.Database.EntityFramework.Model
         public float Price { get; set; }
 
         [Required]
-        public float RewardsPoints { get; set; }
+        public int RewardsPoints { get; set; }
     }
 }
