@@ -32,6 +32,8 @@ namespace Infrastructure.Database.EntityFramework.Repository
 
         public async Task UpdateAsync<Model>(Model model) where Model : class
         {
+            if (model == null) throw new ArgumentNullException("Model can not be null");
+
             await Task.CompletedTask;
             _context.Set<Model>().Update(model);
         }
