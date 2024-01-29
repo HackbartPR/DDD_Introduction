@@ -15,6 +15,6 @@ namespace Infrastructure.Database.EntityFramework.Model
         public float Price { get; set; }
 
         [Required]
-        public int RewardsPoints { get; set; }
+        public int RewardPoints { get; set; }
     }
 }

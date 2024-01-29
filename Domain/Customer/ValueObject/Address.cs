@@ -1,5 +1,4 @@
 ﻿using Domain._Shared.Entity;
-using System.Xml.Linq;
 
 namespace Domain.Customer.ValueObject
 {

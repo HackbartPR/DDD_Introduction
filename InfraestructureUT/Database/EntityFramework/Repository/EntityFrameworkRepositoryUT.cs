@@ -25,7 +25,7 @@ namespace InfraestructureUT.Database.EntityFramework.Repository
                 Id = Guid.NewGuid(),
                 Name = "Test",
                 Price = 10.5f,
-                RewardsPoints = 10
+                RewardPoints = 10
             };
 
             var query = _repository.Query<ProductModel>();
@@ -59,7 +59,7 @@ namespace InfraestructureUT.Database.EntityFramework.Repository
                 Id = Guid.NewGuid(),
                 Name = "Test",
                 Price = 10.5f,
-                RewardsPoints = 10
+                RewardPoints = 10
             };
 
             var query = _repository.Query<ProductModel>();
@@ -97,7 +97,7 @@ namespace InfraestructureUT.Database.EntityFramework.Repository
                 Id = Guid.NewGuid(),
                 Name = "Test",
                 Price = 10.5f,
-                RewardsPoints = 10
+                RewardPoints = 10
             };
 
             ProductModel modelUpdated = model;
@@ -114,7 +114,7 @@ namespace InfraestructureUT.Database.EntityFramework.Repository
             
             result!.Name = "Test Updated";
             result!.Price = 10;
-            result!.RewardsPoints = 20;
+            result!.RewardPoints = 20;
 
             await _repository.UpdateAsync(modelUpdated);
             await _repository.CommitAsync();
@@ -123,7 +123,7 @@ namespace InfraestructureUT.Database.EntityFramework.Repository
             
             Assert.True(result!.Name.Equals("Test Updated"));
             Assert.True(result!.Price == 10);
-            Assert.True(result!.RewardsPoints == 20);
+            Assert.True(result!.RewardPoints == 20);
         }
 
         [Fact]

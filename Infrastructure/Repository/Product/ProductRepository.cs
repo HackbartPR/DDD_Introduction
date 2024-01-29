@@ -19,7 +19,7 @@ namespace Infrastructure.Repository.Product
                 Id = entity.Id,
                 Name = entity.Name,
                 Price = entity.Price,
-                RewardsPoints = entity.RewardPoints,
+                RewardPoints = entity.RewardPoints,
             };
 
             await _repository.AddAsync(product);
@@ -31,7 +31,7 @@ namespace Infrastructure.Repository.Product
             IQueryable<ProductModel> query = _repository.Query<ProductModel>();
             ICollection<ProductModel> models = await query.ToListAsync();
 
-            return models.Select(m => new Domain.Product.Entity.Product(m.Id, m.Name, m.Price, m.RewardsPoints)).ToList();
+            return models.Select(m => new Domain.Product.Entity.Product(m.Id, m.Name, m.Price, m.RewardPoints)).ToList();
         }
 
         public async Task<Domain.Product.Entity.Product?> FindAsync(Guid Id)
@@ -40,7 +40,7 @@ namespace Infrastructure.Repository.Product
             ProductModel? model = await query.FirstOrDefaultAsync(p => p.Id.Equals(Id));
 
             if (model == null) return null;
-            return new Domain.Product.Entity.Product(Id, model.Name, model.Price, model.RewardsPoints);
+            return new Domain.Product.Entity.Product(Id, model.Name, model.Price, model.RewardPoints);
         }
 
         public async Task UpdateAsync(Domain.Product.Entity.Product entity)
@@ -51,7 +51,7 @@ namespace Infrastructure.Repository.Product
 
             model.Name = entity.Name;
             model.Price = entity.Price;
-            model.RewardsPoints = entity.RewardPoints;
+            model.RewardPoints = entity.RewardPoints;
             
             await _repository.UpdateAsync(model);
             await _repository.CommitAsync();

@@ -6,6 +6,7 @@ namespace Infrastructure.Database.EntityFramework.Settings
     public class EFContext : DbContext
     {
         public DbSet<ProductModel> Products { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
 
         public EFContext(DbContextOptions<EFContext> options) : base(options)
         {
