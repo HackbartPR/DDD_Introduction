@@ -4,6 +4,8 @@
     {
         Task CommitAsync();
 
+        void ClearChangeTracker();
+
         Task AddAsync<Model>(Model model) where Model : class;
 
         Task UpdateAsync<Model>(Model model) where Model : class;

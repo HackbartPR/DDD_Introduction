@@ -22,6 +22,11 @@ namespace Infrastructure.Database.EntityFramework.Repository
             await _context.SaveChangesAsync();
         }
 
+        public void ClearChangeTracker()
+        {
+            _context.ChangeTracker.Clear();
+        }
+
         public async Task DeleteAsync<Model>(Model model) where Model : class
         {
             if (model == null) throw new ArgumentNullException("Model can not be null");

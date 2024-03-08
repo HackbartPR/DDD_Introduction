@@ -36,7 +36,7 @@ namespace Infrastructure.Repository.Product
 
         public async Task<Domain.Product.Entity.Product?> FindAsync(Guid Id)
         {
-            IQueryable<ProductModel> query = _repository.Query<ProductModel>();
+            IQueryable<ProductModel> query = _repository.Query<ProductModel>().AsNoTracking();
             ProductModel? model = await query.FirstOrDefaultAsync(p => p.Id.Equals(Id));
 
             if (model == null) return null;

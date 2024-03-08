@@ -1,5 +1,4 @@
 ﻿using Domain._Shared.Repository;
-using Domain.Customer.ValueObject;
 using Infrastructure.Database.EntityFramework.Model;
 using Infrastructure.Repository._Shared;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +46,7 @@ namespace Infrastructure.Repository.Customer
         }
         public async Task<Domain.Customer.Entity.Customer?> FindAsync(Guid Id)
         {
-            IQueryable<CustomerModel> query = _repository.Query<CustomerModel>();
+            IQueryable<CustomerModel> query = _repository.Query<CustomerModel>().AsNoTracking();
             CustomerModel? model = await query.FirstOrDefaultAsync(m => m.Id.Equals(Id));
 
             if (model == null) return null;

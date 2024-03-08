@@ -26,5 +26,7 @@ namespace Infrastructure.Database.EntityFramework.Model
 
         [Column(TypeName = "nvarchar(255)")]
         public string? ZipCode { get; set; }
+
+        public ICollection<OrderModel> Orders { get; set; } = new HashSet<OrderModel>();
     }
 }
