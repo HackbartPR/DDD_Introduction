@@ -5,7 +5,7 @@ namespace Domain.Checkout.Entity
     public class Order : BaseEntity
     {
         public Guid Id { get; private set; }
-        public long Total { get; private set; }
+        public float Total { get; private set; }
         public Guid CustomerId { get; private set; }
         public int RewardPoints { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
@@ -34,9 +34,9 @@ namespace Domain.Checkout.Entity
             CalculateTotal();
         }
 
-        private long CalculateTotal()
+        private float CalculateTotal()
         {
-            return Items.Any() ? Items.Aggregate(0L, (result, item) => result + item.Total) : 0;
+            return Items.Any() ? Items.Aggregate(0f, (result, item) => result + item.Total) : 0;
         }
     }
 }

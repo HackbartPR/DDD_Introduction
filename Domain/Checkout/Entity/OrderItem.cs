@@ -5,13 +5,13 @@ namespace Domain.Checkout.Entity
     public class OrderItem : BaseEntity
     {
         public Guid Id { get; private set; }
-        public long Price { get; private set; }
-        public long Total { get; private set; }
+        public float Price { get; private set; }
+        public float Total { get; private set; }
         public string Name { get; private set; }
         public int Quantity { get; private set; }
         public Guid ProductId { get; private set; }
 
-        public OrderItem(Guid id, string name, int quantity, long price, Guid productId)
+        public OrderItem(Guid id, string name, int quantity, float price, Guid productId)
         {
             Id = id;
             Name = name;
@@ -32,7 +32,7 @@ namespace Domain.Checkout.Entity
             if (ProductId == Guid.Empty) throw new ArgumentException("ProductId is required!");
         }
 
-        public void ChangePrice(long price) 
+        public void ChangePrice(float price) 
         { 
             Price = price;
             Total = CalculateTotal();
@@ -48,7 +48,7 @@ namespace Domain.Checkout.Entity
             Validate();
         }
 
-        private long CalculateTotal()
+        private float CalculateTotal()
         {
             return Quantity * Price;
         }

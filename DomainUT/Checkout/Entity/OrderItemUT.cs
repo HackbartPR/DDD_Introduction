@@ -174,19 +174,19 @@ namespace DomainUT.Checkout.Entity
         public void CalculateTotal_ChangingQuantity_OnSuccess()
         {
             // Arrange
-            long price = 10;
+            float price = 10;
             int newQuant = 2;
             int currQuant = 1;
 
-            long expecNewTotal = 20;
-            long expecCurrTotal = 10;
+            float expecNewTotal = 20;
+            float expecCurrTotal = 10;
 
             // Act
             OrderItem item = new(Guid.NewGuid(), "Item 1", currQuant, price, Guid.NewGuid());
-            long currTotal = item.Total;
+            float currTotal = item.Total;
 
             item.ChangeQuantity(newQuant);
-            long newTotal = item.Total;
+            float newTotal = item.Total;
 
             // Assert
             Assert.True(currTotal == expecCurrTotal);
@@ -198,18 +198,18 @@ namespace DomainUT.Checkout.Entity
         {
             // Arrange
             int quantity = 2;
-            long newPrice = 20;
-            long currPrice = 10;
+            float newPrice = 20;
+            float currPrice = 10;
 
-            long expecNewTotal = 40;
-            long expecCurrTotal = 20;
+            float expecNewTotal = 40;
+            float expecCurrTotal = 20;
 
             // Act
             OrderItem item = new(Guid.NewGuid(), "Item 1", quantity, currPrice, Guid.NewGuid());
-            long currTotal = item.Total;
+            float currTotal = item.Total;
 
             item.ChangePrice(newPrice);
-            long newTotal = item.Total;
+            float newTotal = item.Total;
 
             // Assert
             Assert.True(currTotal == expecCurrTotal);
