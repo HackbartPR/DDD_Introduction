@@ -3,6 +3,7 @@ using Domain.Checkout.Entity;
 using Infrastructure.Database.EntityFramework.Model;
 using Infrastructure.Repository._Shared;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Infrastructure.Repository.Checkout
 {
@@ -36,9 +37,16 @@ namespace Infrastructure.Repository.Checkout
             await _repository.CommitAsync();
         }
 
-        public Task<ICollection<Order>> FindAllAsync()
+        public async Task<ICollection<Order>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            IQueryable<OrderModel> query = _repository.Query<OrderModel>().AsNoTracking();
+            ICollection<OrderModel> modelList = await query.Include(q => q.Items).ToListAsync();
+
+            return modelList.Select(m => new Order(
+                        m.Id,
+                        m.CustomerId,
+                        m.RewardPoints,
+                        m.Items.Select(i => new OrderItem(i.Id, i.Name, i.Quantity, i.Price, i.ProductId)).ToList())).ToList();
         }
 
         public async Task<Order?> FindAsync(Guid Id)
