@@ -1,7 +1,7 @@
 ﻿namespace Domain._Shared.Events
 {
-    public interface IEventHandler<T>
+    public interface IEventHandler
     {
-        void Handle(IEvent<T> eventData);
+        void Handle<T>(IEvent<T> eventData);
     }
 }

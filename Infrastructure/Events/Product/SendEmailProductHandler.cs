@@ -6,7 +6,7 @@ namespace Infrastructure.Events.Product
 {
     public sealed class SendEmailProductHandler : ISendEmailProductHandler
     {
-        public void Handle(IEvent<ProductEntity> eventData)
+        public void Handle<ProductEntity>(IEvent<ProductEntity> eventData)
         {
             // Alguma rotina de enviar e-mail.
             Task.CompletedTask.Wait();
