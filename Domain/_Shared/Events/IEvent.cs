@@ -2,8 +2,8 @@
 {
     public interface IEvent<T>
     {
-        DateTime dateTimeOccurred { get; set; }
+        DateTime DateTimeOccurred { get; }
 
-        T eventData { get; set; }
+        T EventData { get; }
     }
 }

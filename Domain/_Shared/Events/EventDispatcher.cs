@@ -19,7 +19,12 @@
 
         public void Notify<T>(IEvent<T> eventData)
         {
-            throw new NotImplementedException();
+            string eventName = eventData.GetType().Name;
+            if (!_eventHandler.ContainsKey(eventName))
+                return;
+
+            foreach (IEventHandler item in _eventHandler[eventName])
+                item.Handle<T>(eventData);
         }
 
         public void Register(string eventName, IEventHandler handler)

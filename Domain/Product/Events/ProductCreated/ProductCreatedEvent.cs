@@ -5,7 +5,13 @@ namespace Domain.Product.Events.ProductCreated
 {
     public sealed class ProductCreatedEvent : IEvent<ProductEntity>
     {
-        public DateTime dateTimeOccurred { get ; set ; }
-        public ProductEntity eventData { get ; set ; }
+        public DateTime DateTimeOccurred { get; }
+        public ProductEntity EventData { get; }
+
+        public ProductCreatedEvent(ProductEntity eventData)
+        {
+            DateTimeOccurred = DateTime.UtcNow;
+            EventData = eventData;
+        }
     }
 }

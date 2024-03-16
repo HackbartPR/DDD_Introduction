@@ -1,7 +1,11 @@
 ﻿using Domain._Shared.Entity;
 using Domain._Shared.Events;
+using Domain.Product.Events.ProductCreated;
+using Domain.Product.Events.ProductCreated.Handlers;
 using Infrastructure.Events.Product;
+using Moq;
 using System;
+using System.Net.Http.Headers;
 using ProductEntity = Domain.Product.Entity.Product;
 
 namespace InfraestructureUT.Events.Product
@@ -51,6 +55,23 @@ namespace InfraestructureUT.Events.Product
 
             dispatcher.UnregisterAll();
             Assert.False(dispatcher.HasRegistered(Constants.Events.ProductCreated, handler));
+        }
+
+        [Fact]
+        public void Notify_Event()
+        {
+            // Arrange
+            var handler = new Mock<ISendEmailProductHandler>();
+            EventDispatcher dispatcher = new EventDispatcher();
+            IEvent<ProductEntity> eventt = new ProductCreatedEvent(new ProductEntity(Guid.NewGuid(), "Produto 01", 10));
+
+            // Act
+            dispatcher.Register(Constants.Events.ProductCreated, handler.Object);
+            dispatcher.Notify<ProductEntity>(eventt);
+            
+            // Assert
+            Assert.True(dispatcher.HasRegistered(Constants.Events.ProductCreated, handler.Object));
+            handler.Verify(h => h.Handle(eventt), Times.Once);
         }
     }
 }
