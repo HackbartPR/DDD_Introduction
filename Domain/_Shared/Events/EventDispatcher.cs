@@ -9,9 +9,12 @@
             return _eventHandler; 
         }
 
-        public bool HasRegistered(string eventName)
+        public bool HasRegistered(string eventName, IEventHandler handler)
         {
-            return _eventHandler.ContainsKey(eventName);
+            if (!_eventHandler.ContainsKey(eventName)) 
+                return false;
+
+            return _eventHandler[eventName].Any(h => h.Equals(handler));
         }
 
         public void Notify<T>(IEvent<T> eventData)
@@ -19,22 +22,23 @@
             throw new NotImplementedException();
         }
 
-        public void Register<T>(string eventName, IEventHandler handler)
+        public void Register(string eventName, IEventHandler handler)
         {
-            if (! HasRegistered(eventName))
+            if (! HasRegistered(eventName, handler))
                 _eventHandler[eventName] = new List<IEventHandler>();
 
             _eventHandler[eventName].Add(handler);
         }
 
-        public void Unregister<T>(string eventName, IEventHandler handler)
+        public void Unregister(string eventName, IEventHandler handler)
         {
-            throw new NotImplementedException();
+            if (HasRegistered(eventName, handler))
+                _eventHandler[eventName].Remove(handler);
         }
 
         public void UnregisterAll()
         {
-            throw new NotImplementedException();
+            _eventHandler.Clear();
         }
     }
 }

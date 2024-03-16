@@ -4,12 +4,12 @@
     {
         void Notify<T>(IEvent<T> eventData);
 
-        void Register<T>(string eventName, IEventHandler handler);
+        void Register(string eventName, IEventHandler handler);
 
-        void Unregister<T>(string eventName, IEventHandler handler);
+        void Unregister(string eventName, IEventHandler handler);
 
         void UnregisterAll();
 
-        bool HasRegistered(string eventName);
+        bool HasRegistered(string eventName, IEventHandler handler);
     }
 }
